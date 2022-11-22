@@ -1,0 +1,49 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #18181a;
+    color: #f2f2f2;
+    padding: 1.8rem;
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.app_logo a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.app_logo img {
+    width: 40px;
+    height: 40px;
+    margin-right: 1rem;
+}
+
+.app_logo h1 span {
+    color: #F40000;
+    font-size: 1.2em;
+}
+
+.links {
+    display: flex;
+    list-style: none;
+}
+
+.links li {
+    margin-right: 1.3rem;
+}
+
+.links li:nth-child(4) {
+    margin: 0;
+}
+
+.links li a {
+    border-radius: 5px;
+}
+
+.links li .active {
+    background-color: #e94949;
+    transition: 0.4s;
+}
