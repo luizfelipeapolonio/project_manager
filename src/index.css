@@ -18,3 +18,107 @@ a {
   color: #f2f2f2;
   padding: 0.5rem 1rem;
 }
+
+#form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #1d1d20;
+  width: 35%;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #6e6e72;
+  margin: 0 auto;
+}
+
+#form h2 {
+  color: #f2f2f2;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+#form #subtitle {
+  color: #cbcbcd;
+  font-size: 1.5rem;
+  margin-bottom: 1.8rem;
+}
+
+#form h2,
+#form #subtitle {
+  text-align: center;
+}
+
+#form #redirect {
+  color: #cbcbcd;
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 2.3rem;
+}
+
+#form #redirect a {
+  color: #f74d4d;
+  font-weight: bold;
+}
+
+form {
+  width: 100%;
+  padding-bottom: 2.3rem;
+  margin-bottom: 2.3rem;
+  border-bottom: 1px solid #6e6e72;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
+
+label span {
+  color: #cbcbcd;
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-bottom: 0.7rem;
+}
+
+label input {
+  background-color: #303036;
+  color: #f2f2f2;
+  border: 1px solid #303036;
+  outline: none;
+  border-radius: 5px;
+  font-size: 1.7rem;
+  padding: 0.7rem;
+}
+
+label input:focus {
+  border: 1px solid #f74d4d;
+}
+
+label input::placeholder {
+  color: #acacaf;
+}
+
+input[type="submit"] {
+  background-color: #f74d4d;
+  color: #f2f2f2;
+  font-size: 1.6rem;
+  font-weight: bold;
+  border-radius: 5px;
+  border: 1px solid #f74d4d;
+  width: 100%;
+  padding: 0.7rem 0;
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  opacity: 1;
+}
+
+input[type="submit"]:disabled {
+  background-color: #303036;
+  border: 1px solid #303036;
+  color: #cbcbcd;
+  opacity: 1;
+  cursor: not-allowed;
+}

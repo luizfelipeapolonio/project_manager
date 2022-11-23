@@ -5,6 +5,28 @@
     align-items: center;
     background-color: #18181a;
     color: #f2f2f2;
+    border-top: 1px solid #6e6e72;
     height: 150px;
+}
+
+.icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.icons svg {
+    margin-right: 1.3rem;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.icons svg:hover {
+    color: #f74d4d;
+}
+
+.copy {
     font-size: 1.5rem;
 }

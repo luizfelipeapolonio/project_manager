@@ -4,8 +4,9 @@
     align-items: center;
     background-color: #18181a;
     color: #f2f2f2;
+    border-bottom: 1px solid #6e6e72;
     padding: 1.8rem;
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 500;
 }
 
@@ -37,6 +38,7 @@
 
 .links li:nth-child(4) {
     margin: 0;
+    cursor: pointer;
 }
 
 .links li a {
@@ -44,6 +46,6 @@
 }
 
 .links li .active {
-    background-color: #e94949;
+    background-color: #b70000;
     transition: 0.4s;
 }

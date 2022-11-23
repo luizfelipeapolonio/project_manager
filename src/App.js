@@ -7,6 +7,8 @@ import Footer from "./components/Footer";
 
 // Pages
 import Home from "./pages/Home/Home";
+import Login from "./pages/Auth/Login";
+import Register from "./pages/Auth/Register";
 import About from "./pages/About/About";
 
 // React Router
@@ -21,6 +23,8 @@ function App() {
           <div className="container">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
               <Route path="/about" element={<About />} />
             </Routes>
           </div>
