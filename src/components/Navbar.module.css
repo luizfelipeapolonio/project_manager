@@ -36,7 +36,7 @@
     margin-right: 1.3rem;
 }
 
-.links li:nth-child(4) {
+.links li:last-child {
     margin: 0;
     cursor: pointer;
 }

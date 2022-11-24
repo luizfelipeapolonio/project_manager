@@ -1,6 +1,9 @@
 // React Router
 import { Link } from "react-router-dom";
 
+// Components
+import Message from "../../components/Message";
+
 // Hooks
 import { useState, useEffect } from "react";
 import { useAuthentication } from "../../hooks/useAuthentication";
@@ -12,7 +15,7 @@ const Register = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [message, setMessage] = useState(null);
 
-    const { createUser, message: authMessage, loading } = useAuthentication();
+    const { createUser, states } = useAuthentication();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -43,11 +46,28 @@ const Register = () => {
         console.log(res);
     }
 
+    // Set message state with message from request
     useEffect(() => {
-        if(authMessage) {
-            setMessage(authMessage);
+        if(states) {
+            if(!states.loading) {
+                setMessage(states.message);
+            } 
         }
-    }, [authMessage]);
+    }, [states]);
+
+
+    // Reset component message
+    useEffect(() => {
+        if(message) {
+            const resetMessage = setTimeout(() => {
+                setMessage(null);
+            }, 3000);
+
+            return () => {
+                clearTimeout(resetMessage);
+            }
+        } 
+    }, [message]);
 
     return (
         <div id="form">
@@ -55,6 +75,12 @@ const Register = () => {
             <p id="subtitle">
                 Cadastre-se e planeje seus projetos
             </p>
+            {message && (
+                <Message 
+                    type={states}
+                    message={message}
+                />
+            )}
             <form onSubmit={handleSubmit}>
                 <label>
                     <span>Nome:</span>
@@ -96,11 +122,10 @@ const Register = () => {
                         required
                     />
                 </label>
-                {!loading && <input type="submit" value="Cadastrar" />}
-                {loading && (
+                {!states.loading && <input type="submit" value="Cadastrar" />}
+                {states.loading && (
                     <input type="submit" value="Aguarde..." disabled />
                 )}
-                {message && <p>{message}</p>}
             </form>
             <p id="redirect">
                 Já tem uma conta? <Link to="/login">Clique aqui</Link>

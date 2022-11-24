@@ -91,7 +91,7 @@ label input {
 }
 
 label input:focus {
-  border: 1px solid #f74d4d;
+  border: 1px solid #F40000;
 }
 
 label input::placeholder {
@@ -99,12 +99,12 @@ label input::placeholder {
 }
 
 input[type="submit"] {
-  background-color: #f74d4d;
+  background-color: #b70000;
   color: #f2f2f2;
   font-size: 1.6rem;
   font-weight: bold;
   border-radius: 5px;
-  border: 1px solid #f74d4d;
+  border: 1px solid #b70000;
   width: 100%;
   padding: 0.7rem 0;
   opacity: 0.9;
