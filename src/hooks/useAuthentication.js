@@ -7,7 +7,7 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     updateProfile,
-    signOut
+    signOut,
 } from "firebase/auth";
 
 // Hooks
@@ -42,8 +42,6 @@ const statesReducer = (state, action) => {
 }
 
 export const useAuthentication = () => {
-    // const [message, setMessage] = useState(null);
-    // const [loading, setLoading] = useState(null);
     const [states, dispatch] = useReducer(statesReducer, initialState);
     const [cancelled, setCancelled] = useState(false);
 
@@ -74,8 +72,6 @@ export const useAuthentication = () => {
             await updateProfile(user, {displayName: data.name});
             
             dispatch({type: "SUCCESS", payload: "Conta cadastrada com sucesso!"});
-            // setLoading(false);
-            // setMessage("Conta cadastrada com sucesso!");
 
             return user;
 
@@ -95,14 +91,51 @@ export const useAuthentication = () => {
             }
 
             dispatch({type: "ERROR", payload: systemErrorMessage});
-            // setLoading(false);
-            // setMessage(systemErrorMessage);
         }
+    }
+
+    const login = async (data) => {
+        checkIfIsCancelled();
+
+        dispatch({type: "LOADING"});
+
+        try {
+            await signInWithEmailAndPassword(
+                auth,
+                data.email,
+                data.password
+            );
+
+            dispatch({type: "SUCCESS", payload: "Usuário logado!"});
+
+        } catch(error) {
+            console.log(error.message);
+            
+            let systemErrorMessage;
+
+            if(error.message.includes("user-not-found")) {
+                systemErrorMessage = "Usuário não encontrado!";
+            }else if(error.message.includes("wrong-password")) {
+                systemErrorMessage = "Senha incorreta!";
+            }else {
+                systemErrorMessage = "Ocorreu um erro, tente mais tarde!";
+            }
+
+            dispatch({type: "ERROR", payload: systemErrorMessage});
+        }
+    }
+
+    const logout = async () => {
+        checkIfIsCancelled();
+
+        await signOut(auth);
+
+        console.log("Usuário deslogado!");
     }
 
     useEffect(() => {
         return () => setCancelled(true);
     }, []);
 
-    return { createUser, states };
+    return { createUser, login, logout, states, auth };
 }

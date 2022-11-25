@@ -1,25 +1,58 @@
+// Components
+import Message from "../../components/Message";
+
 // React Router
 import { Link } from "react-router-dom";
 
 // Hooks
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAuthentication } from "../../hooks/useAuthentication";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [message, setMessage] = useState(null);
 
-    const handleSubmit = (e) => {
+    const { login, states } = useAuthentication();
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setEmail("");
         setPassword("");
 
-        const login = {
+        const user = {
             email: email,
             password: password
         }
 
-        console.log(login);
+        if(email.length === 0 || password.length === 0) {
+            setMessage("Por favor, preencha todos os campos!");
+            return;
+        }
+
+        const res = await login(user);
+
+        console.log("Login component", res);
     }
+
+    useEffect(() => {
+        if(states) {
+            if(!states.loading && states.actionType === "error") {
+                setMessage(states.message);
+            }
+        }
+    }, [states]);
+
+    // Clear component message
+    useEffect(() => {
+        const reset = setTimeout(() => {
+            setMessage(null);
+        }, 3000);
+
+        return () => {
+            clearTimeout(reset);
+        }
+    }, [message]);
 
     return (
         <div id="form">
@@ -27,6 +60,12 @@ const Login = () => {
             <p id="subtitle">
                 Faça o login e comece a gerenciar seus projetos agora mesmo!
             </p>
+            {message && (
+                <Message 
+                    type={states}
+                    message={message}
+                />
+            )}
             <form onSubmit={handleSubmit}>
                 <label>
                     <span>E-mail:</span>
@@ -35,6 +74,7 @@ const Login = () => {
                         placeholder="Digite seu email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        required
                     />
                 </label>
                 <label>
@@ -44,9 +84,13 @@ const Login = () => {
                         placeholder="Digite sua senha"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        required
                     />
                 </label>
-                <input type="submit" value="Enviar" />
+                {!states.loading && <input type="submit" value="Entrar" />}
+                {states.loading && (
+                    <input type="submit" value="Aguarde..." disabled />
+                )}
             </form>
             <p id="redirect">
                 Não tem uma conta? <Link to="/register">Clique aqui</Link>
