@@ -17,8 +17,6 @@ const Navbar = () => {
     const { logout } = useAuthentication();
     const { user } = useAuthValue();
 
-    console.log("Navbar", user);
-
     return (
         <nav className={styles.navbar}>
             <div className={styles.app_logo}>

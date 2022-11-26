@@ -19,6 +19,10 @@ a {
   padding: 0.5rem 1rem;
 }
 
+button {
+  cursor: pointer;
+}
+
 #form {
   display: flex;
   flex-direction: column;
@@ -28,7 +32,7 @@ a {
   padding: 1.5rem;
   border-radius: 8px;
   border: 1px solid #6e6e72;
-  margin: 0 auto;
+  margin: auto;
 }
 
 #form h2 {

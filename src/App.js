@@ -35,7 +35,7 @@ function App() {
     });
   }, [auth]);
 
-  console.log("Component App auth", auth);
+  console.log("Component App user", user);
 
   return (
     <div className="App">

@@ -30,9 +30,7 @@ const Login = () => {
             return;
         }
 
-        const res = await login(user);
-
-        console.log("Login component", res);
+        await login(user);
     }
 
     useEffect(() => {
