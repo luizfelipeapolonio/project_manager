@@ -1,10 +1,21 @@
 // CSS
-// import styles from "./About.module.css";
+import styles from "./About.module.css";
+
+// React Router
+import { Link } from "react-router-dom";
 
 const About = () => {
     return (
-        <div>
-            <h2>About</h2>
+        <div className={styles.container}>
+            <h2>Sobre o Project<span>M</span></h2>
+            <p>
+                Esta aplicação consiste em um gerenciador de custos de projeto,
+                desenvolvido em React JS e o Firebase para armazenamento dos dados e
+                autenticação de usuários.
+            </p>
+            <Link to="/newproject" className="btn">
+                Criar Projeto
+            </Link>
         </div>
     );
 }

@@ -1,3 +1,6 @@
+// CSS
+import styles from "./Form.module.css";
+
 // React Router
 import { Link } from "react-router-dom";
 
@@ -70,9 +73,9 @@ const Register = () => {
     }, [message]);
 
     return (
-        <div id="form">
+        <div className={styles.container}>
             <h2>Project Manager</h2>
-            <p id="subtitle">
+            <p className={styles.subtitle}>
                 Cadastre-se e planeje seus projetos
             </p>
             {message && (
@@ -127,7 +130,7 @@ const Register = () => {
                     <input type="submit" value="Aguarde..." disabled />
                 )}
             </form>
-            <p id="redirect">
+            <p className={styles.redirect}>
                 Já tem uma conta? <Link to="/login">Clique aqui</Link>
             </p>
         </div>

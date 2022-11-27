@@ -1,3 +1,6 @@
+// CSS
+import styles from "./Form.module.css";
+
 // Components
 import Message from "../../components/Message";
 
@@ -53,9 +56,9 @@ const Login = () => {
     }, [message]);
 
     return (
-        <div id="form">
+        <div className={styles.container}>
             <h2>Project Manager</h2>
-            <p id="subtitle">
+            <p className={styles.subtitle}>
                 Faça o login e comece a gerenciar seus projetos agora mesmo!
             </p>
             {message && (
@@ -90,7 +93,7 @@ const Login = () => {
                     <input type="submit" value="Aguarde..." disabled />
                 )}
             </form>
-            <p id="redirect">
+            <p className={styles.redirect}>
                 Não tem uma conta? <Link to="/register">Clique aqui</Link>
             </p>
         </div>
