@@ -1,4 +1,4 @@
-.container {
+.message_container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,7 +14,7 @@
     text-align: center;
 }
 
-.container.success {
+.message_container.success {
     background-color: #bfdfbf;
     color: #006000;
     border: 1px solid #006000;

@@ -78,12 +78,7 @@ const Register = () => {
             <p className={styles.subtitle}>
                 Cadastre-se e planeje seus projetos
             </p>
-            {message && (
-                <Message 
-                    type={states}
-                    message={message}
-                />
-            )}
+            {message && <Message message={message} />}
             <form onSubmit={handleSubmit}>
                 <label>
                     <span>Nome:</span>

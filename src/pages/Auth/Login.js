@@ -61,12 +61,7 @@ const Login = () => {
             <p className={styles.subtitle}>
                 Faça o login e comece a gerenciar seus projetos agora mesmo!
             </p>
-            {message && (
-                <Message 
-                    type={states}
-                    message={message}
-                />
-            )}
+            {message && <Message message={message} />}
             <form onSubmit={handleSubmit}>
                 <label>
                     <span>E-mail:</span>
