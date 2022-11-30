@@ -24,7 +24,7 @@ const fetchReducer = (state, action) => {
 }
 
 export const useFetchProjects = (docCollection, id = null) => {
-    const [project, setProject] = useState(null);
+    const [project, setProject] = useState([]);
     const [states, dispatch] = useReducer(fetchReducer, initialState);
     const [cancelled, setCancelled] = useState(false);
 
@@ -43,14 +43,17 @@ export const useFetchProjects = (docCollection, id = null) => {
                 searchConfig = await query(collectionRef, orderBy("createdAt", "desc"));
 
                 await onSnapshot(searchConfig, (querySnapshot) => {
-                    setProject(querySnapshot.docs.map((doc) => ({
-                        id: doc.id,
-                        ...doc.data()
-                    })))
+                    if(querySnapshot.docs.length === 0) {
+                        setProject(null);
+                    }else {
+                        setProject(querySnapshot.docs.map((doc) => ({
+                            id: doc.id,
+                            ...doc.data()
+                        })))
+                    }
                     console.log("queySnapshot", querySnapshot);
+                    dispatch({type: "SUCCESS"});
                 });
-
-                dispatch({type: "SUCCESS"});
 
             } catch(error) {
                 console.log(error.message);
