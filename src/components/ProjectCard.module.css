@@ -11,13 +11,83 @@
 }
 
 .projectcard_container h2 {
+    background-color: #3b3b3b;
     color: #f74d4d;
+    border-radius: 5px;
+    padding: 0.5rem;
+    text-align: center;
+    font-size: 1.3em;
+}
+
+.projectcard_container .infos,
+.projectcard_container h2 {
+    margin-bottom: 2.3rem;
 }
 
 .projectcard_container .infos p:nth-child(1) {
     margin-bottom: 1rem;
 }
 
-.projectcard_container .buttons {
+.infos .budget span {
+    font-weight: bold;
+    color: #cbcbcd;
+}
+
+.category {
     display: flex;
+    align-items: center;
+}
+
+.category span {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+.category .infra {
+    background-color: #3737ff;
+}
+
+.category .design {
+    background-color: #fbfb65;
+}
+
+.category .planejamento {
+    background-color: #4da64d;
+}
+
+.category .desenvolvimento {
+    background-color: #a64da6;
+}
+
+.projectcard_container .actions {
+    display: flex;
+}
+
+.actions a {
+    margin-right: 1.5rem;
+}
+
+.actions .button {
+    display: flex;
+    align-items: center;
+    background-color: #b70000;
+    color: #eaeaeb;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.9rem;
+    font-weight: bold;
+    padding: 0.8rem;
+    transition: 0.3s;
+}
+
+.actions .button:hover {
+    background-color: #eaeaeb;
+    color: #b70000;
+}
+
+.actions .button svg {
+    margin-right: 0.5rem;
 }

@@ -34,7 +34,7 @@ const Projects = () => {
         if(message) {
             const reset = setTimeout(() => {
                 setMessage(null);
-            }, 3000);
+            }, 2000);
 
             return () => {
                 clearTimeout(reset);
@@ -51,10 +51,10 @@ const Projects = () => {
 
     return (
         <>
-        {project && (
+        {project && project.length > 0 && (
             <div className={styles.projects_container}>
                 {message && (
-                    <Message type="success" message={location.state} />
+                    <Message type="success" message={message} />
                 )}
                 <div className={styles.header}>
                     <h2>Meus Projetos</h2>
@@ -62,7 +62,6 @@ const Projects = () => {
                         Criar Projeto
                     </Link>
                 </div>
-                {states.loading && <Loading />}
                 <div className={styles.projects}>
                     {project && project.map((item) => (
                         <ProjectCard 
@@ -83,6 +82,7 @@ const Projects = () => {
                 <img src={image} alt="Imagem de início" />
           </div>
         )}
+        {states.loading && <Loading />}
         </>
     );
 }
