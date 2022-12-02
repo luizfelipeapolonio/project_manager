@@ -7,12 +7,9 @@ import { BsPencilSquare, BsTrashFill } from "react-icons/bs";
 // Components
 import { Link } from "react-router-dom";
 
-// Hooks
-import { useProjectHandle } from "../hooks/useProjectHandle";
+const ProjectCard = ({ project, handleDelete}) => {
 
-const ProjectCard = ({ project }) => {
-    const { deleteProject } = useProjectHandle("projects");
-
+    // Format budget to a decimal value
     const decimal = (value) => {
         return Number(value).toFixed(2).replace(".", ",");
     }
@@ -38,7 +35,7 @@ const ProjectCard = ({ project }) => {
                 </Link>
                 <button 
                     className={styles.button} 
-                    onClick={() => deleteProject(project.id)}
+                    onClick={() => handleDelete(project.id)}
                 >
                     <BsTrashFill />Excluir
                 </button>

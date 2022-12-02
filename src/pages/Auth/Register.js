@@ -52,7 +52,7 @@ const Register = () => {
     // Set message state with message from request
     useEffect(() => {
         if(states) {
-            if(!states.loading) {
+            if(!states.loading && states.actionType === "error") {
                 setMessage(states.message);
             } 
         }
@@ -78,7 +78,7 @@ const Register = () => {
             <p className={styles.subtitle}>
                 Cadastre-se e planeje seus projetos
             </p>
-            {message && <Message message={message} />}
+            {message && <Message type="error" message={message} />}
             <form onSubmit={handleSubmit}>
                 <label>
                     <span>Nome:</span>

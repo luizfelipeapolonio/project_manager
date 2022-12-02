@@ -14,27 +14,36 @@ import Loading from "../../components/Loading";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useFetchProjects } from "../../hooks/useFetchProjects";
+import { useProjectHandle } from "../../hooks/useProjectHandle";
 
 const Projects = () => {
     const [message, setMessage] = useState(null);
     const location = useLocation();
 
     const { project, states } = useFetchProjects("projects");
+    const { deleteProject, states: deleteState } = useProjectHandle("projects");
 
     console.log("PROJECTS", project);
 
     useEffect(() => {
         if(location.state) {
-            setMessage(location.state);
+            setMessage(location.state.message);
         }
     }, [location]);
+
+    // Set deletion message
+    useEffect(() => {
+        if(deleteState.message) {
+            setMessage(deleteState.message);
+        }
+    }, [deleteState]);
 
     // Reset component message
     useEffect(() => {
         if(message) {
             const reset = setTimeout(() => {
                 setMessage(null);
-            }, 2000);
+            }, 1500);
 
             return () => {
                 clearTimeout(reset);
@@ -43,9 +52,9 @@ const Projects = () => {
     }, [message]);
 
     // console.log("Message state", message);
-    // if(location.state) {
-    //     console.log("LOCATION ", location);
-    // }
+    if(location.state) {
+        console.log("LOCATION ", location);
+    }
 
     console.log(states);
 
@@ -67,6 +76,7 @@ const Projects = () => {
                         <ProjectCard 
                             key={item.id} 
                             project={item}
+                            handleDelete={deleteProject}
                         />
                     ))}
                 </div>
@@ -83,6 +93,7 @@ const Projects = () => {
           </div>
         )}
         {states.loading && <Loading />}
+        {deleteState.loading && <Loading />}
         </>
     );
 }

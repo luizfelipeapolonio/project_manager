@@ -72,7 +72,9 @@ const ProjectForm = () => {
                 Crie seu projeto para depois adicionar os serviços
             </p>
             {message && <Message message={message} />}
-            {states.error && <Message message={states.error} />}
+            {states.message && (
+                <Message type={states.actionType} message={states.message} />
+            )}
             <form className={styles.form} onSubmit={handleSubmit}>
                 <label>
                     <span>Nome do projeto:</span>

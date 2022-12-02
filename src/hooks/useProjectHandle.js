@@ -4,6 +4,7 @@ import { db } from "../firebase/config";
 // Hooks and methods
 import { useState, useReducer, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuthentication } from "../hooks/useAuthentication";
 import { 
     collection, 
     addDoc, 
@@ -15,17 +16,17 @@ import {
 const initialState = {
     loading: null,
     message: null,
-    error: null
+    actionType: null
 };
 
 const insertReducer = (state, action) => {
     switch(action.type) {
         case "LOADING":
-            return {loading: true, error: null, message: null};
+            return {loading: true, actionType: null, message: null};
         case "SUCCESS":
-            return {loading: false, error: null, message: action.payload};
+            return {loading: false, actionType: "success", message: action.payload};
         case "ERROR":
-            return {loading: false, error: action.payload};
+            return {loading: false, actionType: "error",  message: action.payload};
         default:
             return state;
     }
@@ -34,6 +35,7 @@ const insertReducer = (state, action) => {
 export const useProjectHandle = (docCollection) => {
     const [states, dispatch] = useReducer(insertReducer, initialState);
     const [cancelled, setCancelled] = useState(false);
+    const { auth } = useAuthentication();
 
     const navigate = useNavigate();
 
@@ -49,7 +51,13 @@ export const useProjectHandle = (docCollection) => {
         dispatch({type: "LOADING"});
 
         try {
-            const newDocument = {...document, createdAt: Timestamp.now()};
+            const currentUser = auth.currentUser;
+
+            const newDocument = {
+                ...document, 
+                createdAt: Timestamp.now(),
+                userId: currentUser.uid
+            };
 
             const insertedDocument = await addDoc(
                 collection(db, docCollection),
@@ -60,7 +68,9 @@ export const useProjectHandle = (docCollection) => {
 
             dispatch({type: "SUCCESS", payload: null});
 
-            navigate("/projects", {state: "Projeto criado com sucesso!"});
+            navigate("/projects", {
+                state: {message: "Projeto criado com sucesso!"}
+            });
 
             return insertedDocument;
 
@@ -83,15 +93,12 @@ export const useProjectHandle = (docCollection) => {
 
             dispatch({
                 type: "SUCCESS", 
-                message: "Projeto excluído com sucesso!"
+                payload: "Projeto excluído com sucesso!"
             });
 
         } catch(error) {
             console.log(error.message);
-            dispatch({
-                type: "ERROR", 
-                error: "Ocorreu um erro, tente mais tarde!"
-            });
+            dispatch({type: "ERROR", payload: null});
         }
     }
 

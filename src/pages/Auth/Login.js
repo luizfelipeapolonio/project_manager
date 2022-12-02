@@ -20,9 +20,7 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setEmail("");
-        setPassword("");
-
+    
         const user = {
             email: email,
             password: password
@@ -61,7 +59,7 @@ const Login = () => {
             <p className={styles.subtitle}>
                 Faça o login e comece a gerenciar seus projetos agora mesmo!
             </p>
-            {message && <Message message={message} />}
+            {message && <Message type="error" message={message} />}
             <form onSubmit={handleSubmit}>
                 <label>
                     <span>E-mail:</span>

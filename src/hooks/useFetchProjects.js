@@ -3,7 +3,14 @@ import { db } from "../firebase/config";
 
 // Hooks and methods
 import { useState, useEffect, useReducer } from "react";
-import { collection, query, onSnapshot, orderBy } from "firebase/firestore";
+import { useAuthentication } from "../hooks/useAuthentication";
+import { 
+    collection, 
+    query, 
+    onSnapshot,
+    orderBy, 
+    where 
+} from "firebase/firestore";
 
 const initialState = {
     loading: null,
@@ -27,6 +34,9 @@ export const useFetchProjects = (docCollection, id = null) => {
     const [project, setProject] = useState([]);
     const [states, dispatch] = useReducer(fetchReducer, initialState);
     const [cancelled, setCancelled] = useState(false);
+    
+    const { auth } = useAuthentication();
+    const currentUserId = auth.currentUser.uid;
 
     useEffect(() => {
         const loadData = async () => {
@@ -40,7 +50,11 @@ export const useFetchProjects = (docCollection, id = null) => {
             dispatch({type: "LOADING"});
 
             try {
-                searchConfig = await query(collectionRef, orderBy("createdAt", "desc"));
+                searchConfig = await query(
+                    collectionRef,
+                    where("userId", "==", currentUserId),
+                    orderBy("createdAt", "desc")
+                );
 
                 await onSnapshot(searchConfig, (querySnapshot) => {
                     if(querySnapshot.docs.length === 0) {
@@ -62,7 +76,7 @@ export const useFetchProjects = (docCollection, id = null) => {
         }
 
         loadData();
-    }, [docCollection, id, cancelled]);
+    }, [docCollection, id, cancelled, currentUserId]);
 
     useEffect(() => {
         return () => setCancelled(true);
