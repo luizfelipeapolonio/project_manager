@@ -13,8 +13,8 @@ const About = () => {
                 desenvolvido em React JS e o Firebase para armazenamento dos dados e
                 autenticação de usuários.
             </p>
-            <Link to="/newproject" className="btn">
-                Criar Projeto
+            <Link to="/" className="btn">
+                Ir para início
             </Link>
         </div>
     );

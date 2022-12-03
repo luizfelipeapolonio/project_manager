@@ -71,7 +71,7 @@ const ProjectForm = () => {
             <p className={styles.subtitle}>
                 Crie seu projeto para depois adicionar os serviços
             </p>
-            {message && <Message message={message} />}
+            {message && <Message type="error" message={message} />}
             {states.message && (
                 <Message type={states.actionType} message={states.message} />
             )}

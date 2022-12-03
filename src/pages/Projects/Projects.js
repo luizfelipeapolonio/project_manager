@@ -11,25 +11,33 @@ import ProjectCard from "../../components/ProjectCard";
 import Loading from "../../components/Loading";
 
 // Hooks
-import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useState, useEffect, useCallback } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useFetchProjects } from "../../hooks/useFetchProjects";
 import { useProjectHandle } from "../../hooks/useProjectHandle";
 
 const Projects = () => {
     const [message, setMessage] = useState(null);
     const location = useLocation();
+    const navigate = useNavigate();
 
     const { project, states } = useFetchProjects("projects");
     const { deleteProject, states: deleteState } = useProjectHandle("projects");
 
     console.log("PROJECTS", project);
 
+    // Reset the message of location state
+    const resetLocationState = useCallback(() => {
+        navigate(location.pathname, { replace: true });
+    }, [location, navigate]);
+
+    // Set message with message from location state
     useEffect(() => {
         if(location.state) {
             setMessage(location.state.message);
+            resetLocationState();
         }
-    }, [location]);
+    }, [location, resetLocationState]);
 
     // Set deletion message
     useEffect(() => {
@@ -52,9 +60,9 @@ const Projects = () => {
     }, [message]);
 
     // console.log("Message state", message);
-    if(location.state) {
-        console.log("LOCATION ", location);
-    }
+    // if(location.state) {
+    //     console.log("LOCATION ", location);
+    // }
 
     console.log(states);
 

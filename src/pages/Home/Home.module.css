@@ -1,4 +1,4 @@
-.container {
+.home_container {
     display: flex;
     flex-direction: column;
     /* justify-content: space-between; */
@@ -12,19 +12,27 @@
     text-align: center;
 }
 
-.container h2 {
+.home_container h1 {
+    margin-bottom: 2rem;
+}
+
+.home_container h1 span {
+    color: #f74d4d;
+}
+
+.home_container h2 {
     margin-bottom: 1.3rem;
 }
 
-.container h2 span {
+.home_container h2 span {
     color: #F40000;
     font-size: 1.2em;
 }
 
-.container p {
+.home_container p {
     margin-bottom: 1.5rem;
 }
 
-.container img {
+.home_container img {
     height: 300px;
 }

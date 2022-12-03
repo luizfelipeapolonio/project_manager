@@ -44,6 +44,8 @@ const Register = () => {
             return;
         }
 
+        sessionStorage.setItem("userName", name);
+
         const res = await createUser(user);
 
         console.log(res);
