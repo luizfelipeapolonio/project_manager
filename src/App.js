@@ -8,8 +8,9 @@ import Loading from "./components/Loading";
 
 // Pages
 import Home from "./pages/Home/Home";
-import Projects from "./pages/Projects/Projects";
 import NewProject from "./pages/NewProject/NewProject";
+import Projects from "./pages/Projects/Projects";
+import Project from "./pages/Project/Project";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import About from "./pages/About/About";
@@ -59,6 +60,10 @@ function App() {
                   <Route
                     path="/newproject"
                     element={user ? <NewProject /> : <Navigate to="/login" />}
+                  />
+                  <Route
+                    path="/project/:id"
+                    element={user ? <Project /> : <Navigate to="/login" />}
                   />
                   <Route 
                     path="/login" 

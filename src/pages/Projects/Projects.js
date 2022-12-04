@@ -21,10 +21,10 @@ const Projects = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const { project, states } = useFetchProjects("projects");
+    const { projects, states } = useFetchProjects("projects");
     const { deleteProject, states: deleteState } = useProjectHandle("projects");
 
-    console.log("PROJECTS", project);
+    console.log("PROJECTS", projects);
 
     // Reset the message of location state
     const resetLocationState = useCallback(() => {
@@ -68,7 +68,7 @@ const Projects = () => {
 
     return (
         <>
-        {project && project.length > 0 && (
+        {projects && projects.length > 0 && (
             <div className={styles.projects_container}>
                 {message && (
                     <Message type="success" message={message} />
@@ -80,7 +80,7 @@ const Projects = () => {
                     </Link>
                 </div>
                 <div className={styles.projects}>
-                    {project && project.map((item) => (
+                    {projects && projects.map((item) => (
                         <ProjectCard 
                             key={item.id} 
                             project={item}
@@ -90,7 +90,7 @@ const Projects = () => {
                 </div>
             </div>
         )}
-        {!project && (
+        {!projects && (
             <div className={styles.noprojects}>
                 <h3>Não há projetos ainda!</h3>
                 <p>Vamos começar?</p>

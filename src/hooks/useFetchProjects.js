@@ -30,8 +30,8 @@ const fetchReducer = (state, action) => {
     }
 }
 
-export const useFetchProjects = (docCollection, id = null) => {
-    const [project, setProject] = useState([]);
+export const useFetchProjects = (docCollection) => {
+    const [projects, setProjects] = useState([]);
     const [states, dispatch] = useReducer(fetchReducer, initialState);
     const [cancelled, setCancelled] = useState(false);
     
@@ -58,9 +58,9 @@ export const useFetchProjects = (docCollection, id = null) => {
 
                 await onSnapshot(searchConfig, (querySnapshot) => {
                     if(querySnapshot.docs.length === 0) {
-                        setProject(null);
+                        setProjects(null);
                     }else {
-                        setProject(querySnapshot.docs.map((doc) => ({
+                        setProjects(querySnapshot.docs.map((doc) => ({
                             id: doc.id,
                             ...doc.data()
                         })))
@@ -76,11 +76,11 @@ export const useFetchProjects = (docCollection, id = null) => {
         }
 
         loadData();
-    }, [docCollection, id, cancelled, currentUserId]);
+    }, [docCollection, cancelled, currentUserId]);
 
     useEffect(() => {
         return () => setCancelled(true);
     }, []);
 
-    return { project, states };
+    return { projects, states };
 }

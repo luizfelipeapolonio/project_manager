@@ -5,8 +5,7 @@ import styles from "./ProjectForm.module.css";
 import Message from "./Message";
 
 // Hooks
-import { useState, useEffect } from "react";
-import { useProjectHandle } from "../hooks/useProjectHandle";
+import { useState, useEffect, useRef } from "react";
 
 const categories = [
     {id: 0, name: "Infra"},
@@ -15,44 +14,67 @@ const categories = [
     {id: 3, name: "Planejamento"}
 ];
 
-const ProjectForm = () => {
-    const [name, setName] = useState("");
-    const [budget, setBudget] = useState("");
-    const [category, setCategory] = useState("");
+const ProjectForm = ({ 
+    handleSubmit = null,
+     states = null, 
+     projectData, 
+     title, 
+     subtitle, 
+     btnText }) => {
+    // const [name, setName] = useState("");
+    // const [budget, setBudget] = useState("");
+    const [project, setProject] = useState(projectData || {});
+    // const [category, setCategory] = useState("");
     const [message, setMessage] = useState(null);
 
-    const { insertProject, states } = useProjectHandle("projects");
+    const nameRef = useRef();
+    const budgetRef = useRef();
+    const categoryRef = useRef();
 
-    const handleSubmit = async (e) => {
+    const handleOnChange = (e) => {
+        setProject({...project, [e.target.name]: e.target.value});
+    }
+
+    const submit = async (e) => {
         e.preventDefault();
 
-        const data = {
-            name,
-            budget,
-            category
-        }
+        // const data = {
+        //     name,
+        //     budget,
+        //     category
+        // }
 
-        if(name.length === 0 || budget.length === 0) {
+        if(nameRef.current.value === "" || budgetRef.current.value === "") {
             setMessage(
                 "Por favor, dê um nome e defina um orçamento para o projeto!"
             );
             return;
         }
 
-        if(category.length === 0) {
+        if(categoryRef.current.value === "default") {
             setMessage("Por favor, selecione a categoria do projeto!");
             return;
         }
 
-        await insertProject(data);
-        // console.log(data);
+        await handleSubmit(project);
+        // console.log(project);
     }
 
     // Set category according to option selected
     const handleSelect = (e) => {
-        setCategory(e.target.options[e.target.selectedIndex].text);
+        setProject({
+            ...project, 
+            [e.target.name]: e.target.options[e.target.selectedIndex].text
+        });
         console.log(e.target.options[e.target.selectedIndex].text);
     }
+
+    // Set message with message from states
+    useEffect(() => {
+        if(states && states.message){
+            setMessage(states.message);
+        }   
+    }, [states]);
 
     // // Reset component message
     useEffect(() => {
@@ -67,36 +89,44 @@ const ProjectForm = () => {
 
     return (
         <div className={styles.projectform_container}>
-            <h2>Criar Projeto</h2>
+            <h2>{title}</h2>
             <p className={styles.subtitle}>
-                Crie seu projeto para depois adicionar os serviços
+                {subtitle}
             </p>
             {message && <Message type="error" message={message} />}
-            {states.message && (
-                <Message type={states.actionType} message={states.message} />
-            )}
-            <form className={styles.form} onSubmit={handleSubmit}>
+            <form className={styles.form} onSubmit={submit}>
                 <label>
                     <span>Nome do projeto:</span>
                     <input
                         type="text"
+                        name="name"
+                        ref={nameRef}
                         placeholder="Dê um nome para o seu projeto"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        value={project.name || ""}
+                        onChange={handleOnChange}
                     />
                 </label>
                 <label>
                     <span>Orçamento do projeto:</span>
                     <input 
                         type="number"
+                        name="budget"
+                        ref={budgetRef}
                         placeholder="Orçamento total do seu projeto"
-                        value={budget}
-                        onChange={(e) => setBudget(e.target.value)}
+                        value={project.budget || ""}
+                        onChange={handleOnChange}
                     />
                 </label>
                 <label>
                     <span>Selecione a categoria:</span>
-                    <select onChange={handleSelect} defaultValue={"default"}>
+                    <select
+                        name="category"
+                        onChange={handleSelect} 
+                        defaultValue={
+                            project.category || "default"
+                        }
+                        ref={categoryRef}
+                    >
                         <option value="default" disabled>
                             Selecione uma opção
                         </option>
@@ -105,8 +135,10 @@ const ProjectForm = () => {
                         ))}
                     </select>
                 </label>
-                {!states.loading && <input type="submit" value="Criar" />}
-                {states.loading && (
+                {states && !states.loading && (
+                    <input type="submit" value={btnText} />
+                )}
+                {states && states.loading && (
                     <input type="submit" value="Aguarde..." disabled />
                 )}
             </form>
