@@ -9,30 +9,43 @@ import {
     collection, 
     addDoc, 
     deleteDoc, 
-    doc, 
+    doc,
+    updateDoc,
+    getDoc, 
     Timestamp 
 } from "firebase/firestore";
 
 const initialState = {
     loading: null,
     message: null,
+    payload: null,
     actionType: null
 };
 
 const insertReducer = (state, action) => {
     switch(action.type) {
         case "LOADING":
-            return {loading: true, actionType: null, message: null};
+            return {loading: true, actionType: null, message: null, payload: null};
         case "SUCCESS":
-            return {loading: false, actionType: "success", message: action.payload};
+            return {
+                loading: false, 
+                actionType: "success", 
+                message: action.message,
+                payload: action.payload
+            };
         case "ERROR":
-            return {loading: false, actionType: "error",  message: action.payload};
+            return {
+                loading: false, 
+                actionType: "error",  
+                message: action.message,
+                payload: null
+            };
         default:
             return state;
     }
 }
 
-export const useProjectHandle = (docCollection) => {
+export const useProjectHandle = (docCollection, projectId = null) => {
     const [states, dispatch] = useReducer(insertReducer, initialState);
     const [cancelled, setCancelled] = useState(false);
     const { auth } = useAuthentication();
@@ -66,7 +79,7 @@ export const useProjectHandle = (docCollection) => {
 
             console.log("useinsertProject ", insertedDocument);
 
-            dispatch({type: "SUCCESS", payload: null});
+            dispatch({type: "SUCCESS", payload: null, message: null});
 
             navigate("/projects", {
                 state: {message: "Projeto criado com sucesso!"}
@@ -78,7 +91,7 @@ export const useProjectHandle = (docCollection) => {
             console.log(error.message);
             dispatch({
                 type: "ERROR", 
-                payload: "Ocorreu um erro, tente mais tarde!"
+                message: "Ocorreu um erro, tente mais tarde!"
             });
         }
     }
@@ -93,12 +106,38 @@ export const useProjectHandle = (docCollection) => {
 
             dispatch({
                 type: "SUCCESS", 
-                payload: "Projeto excluído com sucesso!"
+                message: "Projeto excluído com sucesso!",
+                payload: null
             });
 
         } catch(error) {
             console.log(error.message);
-            dispatch({type: "ERROR", payload: null});
+            dispatch({type: "ERROR", message: null});
+        }
+    }
+
+    const updateProject = async (data) => {
+        checkIfIsCancelled();
+
+        dispatch({type: "LOADING"});
+
+        try {
+            const docRef = await doc(db, docCollection, projectId);
+            await updateDoc(docRef, data);
+
+            const updatedProjectData = await getDoc(docRef);
+
+            console.log("UPDATED PROJECT", updatedProjectData.data());
+
+            dispatch({
+                type: "SUCCESS", 
+                message: "Projeto atualizado com sucesso!",
+                payload: updatedProjectData.data()
+            });
+
+        } catch(error) {
+            console.log(error.message);
+            dispatch({type: "ERROR", message: "Ocorreu um erro, tente mais tarde!"});
         }
     }
 
@@ -108,5 +147,5 @@ export const useProjectHandle = (docCollection) => {
         }
     }, []);
 
-    return { insertProject, deleteProject, states };
+    return { insertProject, deleteProject, updateProject, states };
 }

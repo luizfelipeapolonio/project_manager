@@ -16,7 +16,7 @@ const categories = [
 
 const ProjectForm = ({ 
     handleSubmit = null,
-     states = null, 
+     states = null,
      projectData, 
      title, 
      subtitle, 
