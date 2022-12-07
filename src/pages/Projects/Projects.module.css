@@ -11,7 +11,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2.7rem;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #6e6e72;
 }
 
 .projects_container .header h2 {

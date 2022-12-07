@@ -11,7 +11,9 @@ const ProjectCard = ({ project, handleDelete}) => {
 
     // Format budget to a decimal value
     const decimal = (value) => {
-        return Number(value).toFixed(2).replace(".", ",");
+        if(value) {
+            return Number(value).toFixed(2).replace(".", ",");
+        }
     }
 
     return (

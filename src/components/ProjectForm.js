@@ -66,15 +66,14 @@ const ProjectForm = ({
             ...project, 
             [e.target.name]: e.target.options[e.target.selectedIndex].text
         });
-        console.log(e.target.options[e.target.selectedIndex].text);
     }
 
     // Set message with message from states
-    useEffect(() => {
-        if(states && states.message){
-            setMessage(states.message);
-        }   
-    }, [states]);
+    // useEffect(() => {
+    //     if(states && states.message){
+    //         setMessage(states.message);
+    //     }   
+    // }, [states]);
 
     // // Reset component message
     useEffect(() => {
