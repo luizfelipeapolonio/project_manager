@@ -12,15 +12,19 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useFetchProject } from "../../hooks/useFetchProject";
 import { useProjectHandle } from "../../hooks/useProjectHandle";
+import { useServiceHandle } from "../../hooks/useServiceHandle";
 
 const Project = () => {
     const [showProjectForm, setShowProjectForm] = useState(false);
+    const [showServiceForm, setShowServiceForm] = useState(false);
     const [currentProject, setCurrentProject] = useState(null);
     const [message, setMessage] = useState(null);
+    const [actionType, setActionType] = useState(null);
 
     const { id } = useParams();
     const { project, states } = useFetchProject("projects", id);
     const { updateProject, states: updateStates } = useProjectHandle("projects", id);
+    const { insertService, states: serviceStates } = useServiceHandle("projects", id);
 
     console.log("PROJETO INDIVIDUAL", project);
 
@@ -31,9 +35,14 @@ const Project = () => {
         }
     }
 
-    // Show or hide a form
-    const toogleShowOrHideForm = () => {
+    // Show or hide the project form
+    const toggleVisibilityProjectForm = () => {
         setShowProjectForm(!showProjectForm);
+    }
+
+    // Show or hide the service form
+    const toggleVisibilityServiceForm = () => {
+        setShowServiceForm(!showServiceForm);
     }
 
     // Set currentProject state with project data when edit button is clicked
@@ -52,14 +61,25 @@ const Project = () => {
         }
         if(updateStates && updateStates.message) {
             setMessage(updateStates.message);
+            setActionType(updateStates.actionType);
         }
     }, [updateStates]);
+
+    // Set message state with message from service request
+    useEffect(() => {
+        if(serviceStates && serviceStates.message) {
+            setMessage(serviceStates.message);
+            setActionType(serviceStates.actionType);
+            setShowServiceForm(false);
+        }
+    }, [serviceStates]);
 
     // Reset component message
     useEffect(() => {
         if(message) {
             const reset = setTimeout(() => {
                 setMessage(null);
+                setActionType(null);
             }, 1800);
 
             return () => {
@@ -72,14 +92,14 @@ const Project = () => {
         <div className={styles.project_container}>
             {states && states.loading && <Loading />}
             {message && (
-                <Message type={updateStates.actionType} message={message} />
+                <Message type={actionType} message={message} />
             )}
             {currentProject && (
                 <div className={styles.project_info}>
                     <div className={styles.header}>
                         <h1>{currentProject.name}</h1>
                         <button 
-                            onClick={toogleShowOrHideForm} 
+                            onClick={toggleVisibilityProjectForm} 
                             className={styles.project_button}
                         >
                             {showProjectForm ? "Fechar" : "Editar Projeto"}
@@ -115,11 +135,23 @@ const Project = () => {
             <div className={styles.services}>
                 <div className={styles.services_header}>
                     <h2>Adicione serviços</h2>
-                    <button className={styles.project_button}>
-                        Adicionar Serviço
+                    <button 
+                        className={styles.project_button}
+                        onClick={toggleVisibilityServiceForm}
+                    >
+                        {showServiceForm ? "Fechar" : "Adicionar Serviço"}
                     </button>
                 </div>
-                    <ServiceForm />
+                {showServiceForm && (
+                    <ServiceForm 
+                        states={serviceStates} 
+                        handleSubmit={insertService} 
+                    />
+                )}   
+            </div>
+            <div className={styles.show_services}>
+                <h2>Serviços</h2>
+                <p>Não há serviços cadastrados</p>
             </div>
         </div>
     );

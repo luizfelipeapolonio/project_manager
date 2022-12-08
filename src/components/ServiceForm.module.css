@@ -1,4 +1,75 @@
 .service_form {
     display: flex;
     flex-direction: column;
+    width: 43%;
+    margin: 2rem auto 1rem;
+}
+
+.service_form h2 {
+    color: #f2f2f2;
+    margin-bottom: 1.5rem;
+}
+
+.service_form .subtitle {
+    color: #cbcbcd;
+    margin-bottom: 2rem;
+}
+
+.service_form h2,
+.service_form .subtitle {
+    text-align: center;
+}
+
+.service_form label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.8rem;
+}
+
+.service_form label span {
+    color: #cbcbcd;
+    font-weight: bold;
+    margin-bottom: 0.7rem;
+}
+
+.service_form label input {
+    background-color: #1d1d20;
+    color: #f2f2f2;
+    border: 1px solid #1d1d20;
+    outline: none;
+    border-radius: 5px;
+    padding: 1rem;
+    font-size: 1.7rem;
+}
+
+.service_form label input:focus {
+    border: 1px solid #F40000;
+}
+
+.service_form label input::placeholder {
+    color: #acacaf;
+}
+
+.service_form input[type="submit"] {
+    background-color: #b70000;
+    color: #f2f2f2;
+    font-size: 1.6rem;
+    font-weight: bold;
+    border-radius: 5px;
+    border: none;
+    width: 100%;
+    opacity: 0.9;
+    padding: 1rem 0;
+    cursor: pointer;
+}
+
+.service_form input[type="submit"]:hover {
+    opacity: 1;
+}
+
+.service_form input[type="submit"]:disabled {
+    background-color: #780000;
+    border: 1px solid #780000;
+    opacity: 0.8;
+    cursor: not-allowed;
 }

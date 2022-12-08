@@ -62,7 +62,12 @@
     align-items: center;
 }
 
-.services .services_header h2 {
+.show_services {
+    margin-bottom: 4rem;
+}
+
+.services .services_header h2,
+.show_services h2 {
     color: #f74d4d;
 }
 
