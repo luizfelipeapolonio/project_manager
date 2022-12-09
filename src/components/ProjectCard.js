@@ -7,7 +7,7 @@ import { BsPencilSquare, BsTrashFill } from "react-icons/bs";
 // Components
 import { Link } from "react-router-dom";
 
-const ProjectCard = ({ project, handleDelete}) => {
+const ProjectCard = ({ project, handleDelete }) => {
 
     // Format budget to a decimal value
     const decimal = (value) => {

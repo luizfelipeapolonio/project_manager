@@ -3,28 +3,31 @@ import { db } from "../firebase/config";
 
 // Hooks and methods
 import { useState, useEffect, useReducer } from "react";
-import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, getDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 
 const initialState = {
     loading: null,
     message: null,
+    payload: null,
     actionType: null
 }
 
 const serviceReducer = (state, action) => {
     switch(action.type) {
         case "LOADING":
-            return {loading: true, message: null, actionType: null};
+            return {loading: true, message: null, actionType: null, payload: null};
         case "SUCCESS":
             return {
                 loading: false, 
-                message: action.message, 
+                message: action.message,
+                payload: action.payload, 
                 actionType: "success"
             };
         case "ERROR":
             return {
                 loading: false,
                 message: action.message,
+                payload: null,
                 actionType: "error"
             };
         default:
@@ -52,9 +55,12 @@ export const useServiceHandle = (docCollection, id) => {
             const docRef = doc(db, docCollection, id);
             await updateDoc(docRef, {services: arrayUnion(data)});
 
+            const updatedProjectData = await getDoc(docRef);
+
             dispatch({
                 type: "SUCCESS", 
-                message: "Serviço adicionado com sucesso!"
+                message: "Serviço adicionado com sucesso!",
+                payload: updatedProjectData.data()
             });
 
         } catch(error) {
@@ -66,9 +72,36 @@ export const useServiceHandle = (docCollection, id) => {
         }
     }
 
+    const deleteService = async (serviceObject) => {
+        checkIfIsCancelled();
+
+        dispatch({type: "LOADING"});
+
+        try {
+            const docRef = doc(db, docCollection, id);
+            await updateDoc(docRef, {services: arrayRemove(serviceObject)});
+
+            const updatedProjectData = await getDoc(docRef);
+
+            dispatch({
+                type: "SUCCESS",
+                message: "Serviço excluído com sucesso!",
+                payload: updatedProjectData.data()
+            })
+
+        } catch(error) {
+            console.log(error.message);
+            dispatch({
+                type: "ERROR", 
+                message: "Ocorreu um erro ao excluir! Tente mais tarde!"
+            });
+        }
+
+    }
+
     useEffect(() => {
         return () => setCancelled(true);
     }, []);
 
-    return { insertService, states };
+    return { insertService, deleteService, states };
 }

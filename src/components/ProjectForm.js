@@ -21,10 +21,7 @@ const ProjectForm = ({
      title, 
      subtitle, 
      btnText }) => {
-    // const [name, setName] = useState("");
-    // const [budget, setBudget] = useState("");
     const [project, setProject] = useState(projectData || {});
-    // const [category, setCategory] = useState("");
     const [message, setMessage] = useState(null);
 
     const nameRef = useRef();
@@ -37,12 +34,6 @@ const ProjectForm = ({
 
     const submit = async (e) => {
         e.preventDefault();
-
-        // const data = {
-        //     name,
-        //     budget,
-        //     category
-        // }
 
         if(nameRef.current.value === "" || budgetRef.current.value === "") {
             setMessage(
@@ -57,7 +48,6 @@ const ProjectForm = ({
         }
 
         await handleSubmit(project);
-        // console.log(project);
     }
 
     // Set category according to option selected
@@ -67,13 +57,6 @@ const ProjectForm = ({
             [e.target.name]: e.target.options[e.target.selectedIndex].text
         });
     }
-
-    // Set message with message from states
-    // useEffect(() => {
-    //     if(states && states.message){
-    //         setMessage(states.message);
-    //     }   
-    // }, [states]);
 
     // // Reset component message
     useEffect(() => {

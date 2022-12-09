@@ -18,13 +18,13 @@ const fetchReducer = (state, action) => {
         case "SUCCESS":
             return {
                 loading: false, 
-                message: action.payload, 
+                message: action.message, 
                 actionType: "success"
             };
         case "ERROR":
             return {
                 loading: false,
-                message: action.payload,
+                message: action.message,
                 actionType: "error"
             };
         default:
@@ -50,13 +50,13 @@ export const useFetchProject = (docCollection, id) => {
 
                 setProject(projectData.data());
 
-                dispatch({type: "SUCCESS", payload: null});
+                dispatch({type: "SUCCESS", message: null});
 
             } catch(error) {
                 console.log(error.message);
                 dispatch({
                     type: "ERROR", 
-                    payload: "Ocorreu um erro, tente mais tarde!"
+                    message: "Ocorreu um erro, tente mais tarde!"
                 });
             }
         }

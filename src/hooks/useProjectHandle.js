@@ -112,7 +112,10 @@ export const useProjectHandle = (docCollection, projectId = null) => {
 
         } catch(error) {
             console.log(error.message);
-            dispatch({type: "ERROR", message: null});
+            dispatch({
+                type: "ERROR", 
+                message: "Ocorreu um erro ao excluir! Tente mais tarde"
+            });
         }
     }
 

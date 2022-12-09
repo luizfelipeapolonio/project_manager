@@ -6,6 +6,7 @@ import ProjectForm from "../../components/ProjectForm";
 import Loading from "../../components/Loading";
 import Message from "../../components/Message";
 import ServiceForm from "../../components/ServiceForm";
+import ServiceCard from "../../components/ServiceCard";
 
 // Hooks
 import { useState, useEffect } from "react";
@@ -24,7 +25,11 @@ const Project = () => {
     const { id } = useParams();
     const { project, states } = useFetchProject("projects", id);
     const { updateProject, states: updateStates } = useProjectHandle("projects", id);
-    const { insertService, states: serviceStates } = useServiceHandle("projects", id);
+    const { 
+        insertService, 
+        deleteService, 
+        states: serviceStates 
+    } = useServiceHandle("projects", id);
 
     console.log("PROJETO INDIVIDUAL", project);
 
@@ -67,10 +72,13 @@ const Project = () => {
 
     // Set message state with message from service request
     useEffect(() => {
+        if(serviceStates && serviceStates.payload) {
+            setCurrentProject(serviceStates.payload);
+            setShowServiceForm(false);
+        }
         if(serviceStates && serviceStates.message) {
             setMessage(serviceStates.message);
             setActionType(serviceStates.actionType);
-            setShowServiceForm(false);
         }
     }, [serviceStates]);
 
@@ -151,7 +159,23 @@ const Project = () => {
             </div>
             <div className={styles.show_services}>
                 <h2>Serviços</h2>
-                <p>Não há serviços cadastrados</p>
+                {serviceStates && serviceStates.loading ? <Loading /> : (
+                    <div className={styles.services_container}>
+                        {currentProject && currentProject.services && 
+                            currentProject.services.length > 0 ? (
+                                currentProject.services.map((service) => (
+                                    <ServiceCard 
+                                        key={service.id} 
+                                        service={service} 
+                                        handleDelete={deleteService}
+                                    />
+                                ))
+                            ) : (
+                                <p>Não há serviços cadastrados</p>
+                            )
+                        }
+                    </div>
+                )}
             </div>
         </div>
     );

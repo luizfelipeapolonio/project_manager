@@ -18,6 +18,7 @@ import { useProjectHandle } from "../../hooks/useProjectHandle";
 
 const Projects = () => {
     const [message, setMessage] = useState(null);
+    const [actionType, setActionType] = useState(null);
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -35,14 +36,16 @@ const Projects = () => {
     useEffect(() => {
         if(location.state) {
             setMessage(location.state.message);
+            setActionType("success");
             resetLocationState();
         }
     }, [location, resetLocationState]);
 
     // Set deletion message
     useEffect(() => {
-        if(deleteState.message) {
+        if(deleteState && deleteState.message) {
             setMessage(deleteState.message);
+            setActionType(deleteState.actionType);
         }
     }, [deleteState]);
 
@@ -51,6 +54,7 @@ const Projects = () => {
         if(message) {
             const reset = setTimeout(() => {
                 setMessage(null);
+                setActionType(null);
             }, 1500);
 
             return () => {
@@ -71,7 +75,7 @@ const Projects = () => {
         {projects && projects.length > 0 && (
             <div className={styles.projects_container}>
                 {message && (
-                    <Message type="success" message={message} />
+                    <Message type={actionType} message={message} />
                 )}
                 <div className={styles.header}>
                     <h2>Meus Projetos</h2>

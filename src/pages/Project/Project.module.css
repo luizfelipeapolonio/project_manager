@@ -66,6 +66,16 @@
     margin-bottom: 4rem;
 }
 
+.show_services h2 {
+    margin-bottom: 2rem;
+}
+
+.services_container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 200px));
+    gap: 1.5rem;
+}
+
 .services .services_header h2,
 .show_services h2 {
     color: #f74d4d;
