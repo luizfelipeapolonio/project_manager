@@ -8,30 +8,33 @@ import Message from "./Message";
 import { useState, useEffect, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-const ServiceForm = ({ handleSubmit, states }) => {
-    // const [name, setName] = useState("");
-    // const [cost, setCost] = useState("");
-    // const [description, setDescription] = useState("");
-    const [service, setService] = useState({});
+const ServiceForm = ({ handleSubmit, states, project }) => {
+    const [name, setName] = useState("");
+    const [cost, setCost] = useState("");
+    const [description, setDescription] = useState("");
+    // const [service, setService] = useState({});
     const [message, setMessage] = useState(null);
 
-    const nameRef = useRef();
+    const [budget, setBudget] = useState(0);
+    const [totalSpent, setTotalSpent] = useState(0);
+    
     const costRef = useRef();
-    const descriptionRef = useRef();
 
     const submit = async (e) => {
         e.preventDefault();
 
-        // const service = {
-        //     id: uuidv4(),
-        //     name,
-        //     cost,
-        //     description
-        // }
+        const service = {
+            id: uuidv4(),
+            name,
+            cost: parseFloat(cost),
+            description
+        }
 
-        if(nameRef.current.value === "" || 
-           costRef.current.value === "" || 
-           descriptionRef.current.value === "") {
+        const newSpent = parseFloat(totalSpent) + service.cost;
+
+        if(name.length === 0 || 
+           cost.length === 0 || 
+           description.length === 0) {
             setMessage(
                 "Por favor, preencha todos os campos" + 
                 " para poder adicionar um serviço"
@@ -39,19 +42,40 @@ const ServiceForm = ({ handleSubmit, states }) => {
             return;
         }
 
-        await handleSubmit(service);
+        if(cost === "0") {
+            setMessage("Preencha o custo do serviço com um valor válido!");
+            return;
+        }
 
-        console.log(service);
+        if(service.cost > budget || newSpent > budget) {
+            setMessage("Orçamento ultrapassado!");
+            console.log(typeof newSpent);
+            return;
+        }
+
+        await handleSubmit(service, newSpent.toFixed(2).replace(".", ","));
+
+        // console.log(parseFloat(totalSpent), budget);
     }
 
     // Set service state with an object containing the service data
-    const handleOnChange = (e) => {
-        setService({
-            id: uuidv4(),
-            ...service,
-            [e.target.name]: e.target.value
-        });
-    }
+    // const  = (e) => {
+    //     setService({
+    //         id: uuidv4(),
+    //         ...service,
+    //         [e.target.name]: e.target.value
+    //     });
+    // }
+
+    useEffect(() => {
+        if(project) {
+            setBudget(parseFloat(project.budget));
+        }
+
+        if(project && project.totalSpent) {
+            setTotalSpent(project.totalSpent.replace(",", "."));
+        }
+    }, [project]);
 
 
     // Reset component message
@@ -81,8 +105,7 @@ const ServiceForm = ({ handleSubmit, states }) => {
                         type="text"
                         name="name"
                         placeholder="Insira o nome do serviço"
-                        ref={nameRef}
-                        onChange={handleOnChange}
+                        onChange={(e) => setName(e.target.value)}
                     />
                 </label>
                 <label>
@@ -91,8 +114,9 @@ const ServiceForm = ({ handleSubmit, states }) => {
                         type="number"
                         name="cost"
                         placeholder="Coloque o custo do serviço"
+                        step=".01"
                         ref={costRef}
-                        onChange={handleOnChange}
+                        onChange={(e) => setCost(e.target.value)}
                     />
                 </label>
                 <label>
@@ -101,8 +125,7 @@ const ServiceForm = ({ handleSubmit, states }) => {
                         type="text"
                         name="description"
                         placeholder="Diga sobre o que se trata..."
-                        ref={descriptionRef}
-                        onChange={handleOnChange}
+                        onChange={(e) => setDescription(e.target.value)}
                     />
                 </label>
                 {states && states.loading && (

@@ -123,7 +123,9 @@ const Project = () => {
                                 R$ {decimal(currentProject.budget)}
                             </p>
                             <p>
-                                <span>Total utilizado:</span> R$
+                                <span>Total utilizado:</span> 
+                                R$ {currentProject.totalSpent ? 
+                                    currentProject.totalSpent : 0}
                             </p>
                         </div>
                     ) : (
@@ -152,8 +154,9 @@ const Project = () => {
                 </div>
                 {showServiceForm && (
                     <ServiceForm 
+                        project={currentProject}
                         states={serviceStates} 
-                        handleSubmit={insertService} 
+                        handleSubmit={insertService}
                     />
                 )}   
             </div>
@@ -167,6 +170,7 @@ const Project = () => {
                                     <ServiceCard 
                                         key={service.id} 
                                         service={service} 
+                                        project={currentProject}
                                         handleDelete={deleteService}
                                     />
                                 ))

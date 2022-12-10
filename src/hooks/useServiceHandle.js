@@ -46,14 +46,17 @@ export const useServiceHandle = (docCollection, id) => {
     }
 
     // Insert service to a project
-    const insertService = async (data) => {
+    const insertService = async (data, newValueSpent) => {
         checkIfIsCancelled();
 
         dispatch({type: "LOADING"});
 
         try {
             const docRef = doc(db, docCollection, id);
-            await updateDoc(docRef, {services: arrayUnion(data)});
+            await updateDoc(docRef, {
+                totalSpent: newValueSpent, 
+                services: arrayUnion(data)
+            });
 
             const updatedProjectData = await getDoc(docRef);
 
@@ -72,14 +75,17 @@ export const useServiceHandle = (docCollection, id) => {
         }
     }
 
-    const deleteService = async (serviceObject) => {
+    const deleteService = async (serviceObject, newValueSpent) => {
         checkIfIsCancelled();
 
         dispatch({type: "LOADING"});
 
         try {
             const docRef = doc(db, docCollection, id);
-            await updateDoc(docRef, {services: arrayRemove(serviceObject)});
+            await updateDoc(docRef, {
+                totalSpent: newValueSpent,
+                services: arrayRemove(serviceObject)
+            });
 
             const updatedProjectData = await getDoc(docRef);
 
