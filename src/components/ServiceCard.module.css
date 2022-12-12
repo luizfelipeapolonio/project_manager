@@ -4,7 +4,7 @@
     justify-content: space-between;
     background-color: #1d1d20;
     color: #f2f2f2;
-    width: 100%;
+    width: 24.13%;
     min-height: 200px;
     border-radius: 8px;
     padding: 1.3rem;
@@ -51,4 +51,23 @@
 .total_cost,
 .service_description {
     margin-bottom: 2.3rem;
+}
+
+/* ==== Media Queries ==== */
+@media (max-width: 1332px) {
+    .servicecard_container {
+        width: 32.35%;
+    }
+}
+
+@media (max-width: 1057px) {
+    .servicecard_container {
+        width: 48.8%;
+    }
+}
+
+@media (max-width: 664px) {
+    .servicecard_container {
+        width: 100%;
+    }
 }

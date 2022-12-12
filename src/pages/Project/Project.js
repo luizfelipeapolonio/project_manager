@@ -142,45 +142,49 @@ const Project = () => {
                     )}
                 </div>
             )}
-            <div className={styles.services}>
-                <div className={styles.services_header}>
-                    <h2>Adicione serviços</h2>
-                    <button 
-                        className={styles.project_button}
-                        onClick={toggleVisibilityServiceForm}
-                    >
-                        {showServiceForm ? "Fechar" : "Adicionar Serviço"}
-                    </button>
-                </div>
-                {showServiceForm && (
-                    <ServiceForm 
-                        project={currentProject}
-                        states={serviceStates} 
-                        handleSubmit={insertService}
-                    />
-                )}   
-            </div>
-            <div className={styles.show_services}>
-                <h2>Serviços</h2>
-                {serviceStates && serviceStates.loading ? <Loading /> : (
-                    <div className={styles.services_container}>
-                        {currentProject && currentProject.services && 
-                            currentProject.services.length > 0 ? (
-                                currentProject.services.map((service) => (
-                                    <ServiceCard 
-                                        key={service.id} 
-                                        service={service} 
-                                        project={currentProject}
-                                        handleDelete={deleteService}
-                                    />
-                                ))
-                            ) : (
-                                <p>Não há serviços cadastrados</p>
-                            )
-                        }
+            {currentProject && !states.loading && (
+                <>
+                    <div className={styles.services}>
+                        <div className={styles.services_header}>
+                            <h2>Adicione serviços</h2>
+                            <button 
+                                className={styles.project_button}
+                                onClick={toggleVisibilityServiceForm}
+                            >
+                                {showServiceForm ? "Fechar" : "Adicionar Serviço"}
+                            </button>
+                        </div>
+                        {showServiceForm && (
+                            <ServiceForm 
+                                project={currentProject}
+                                states={serviceStates} 
+                                handleSubmit={insertService}
+                            />
+                        )}   
                     </div>
-                )}
-            </div>
+                    <div className={styles.show_services}>
+                        <h2>Serviços</h2>
+                        {serviceStates && serviceStates.loading ? <Loading /> : (
+                            <div className={styles.services_container}>
+                                {currentProject && currentProject.services && 
+                                    currentProject.services.length > 0 ? (
+                                        currentProject.services.map((service) => (
+                                            <ServiceCard 
+                                                key={service.id} 
+                                                service={service} 
+                                                project={currentProject}
+                                                handleDelete={deleteService}
+                                            />
+                                        ))
+                                    ) : (
+                                        <p>Não há serviços cadastrados</p>
+                                    )
+                                }
+                            </div>
+                        )}
+                    </div>
+                </>
+            )}
         </div>
     );
 }

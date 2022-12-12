@@ -49,3 +49,16 @@
     background-color: #b70000;
     transition: 0.4s;
 }
+
+/* ==== Media Queries ==== */
+@media (max-width: 600px) {
+    .navbar {
+        font-size: 1.6rem;
+    }
+    
+    .app_logo img {
+        width: 32px;
+        height: 32px;
+        margin-right: 0.5rem;
+    }
+}

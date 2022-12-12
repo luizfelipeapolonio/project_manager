@@ -71,8 +71,11 @@
 }
 
 .services_container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 200px));
+    /* display: grid;
+    grid-template-columns: repeat(4, minmax(24.13%, 1fr));
+    gap: 1.5rem; */
+    display: flex;
+    flex-wrap: wrap;
     gap: 1.5rem;
 }
 
@@ -87,4 +90,12 @@
     border-bottom: 1px solid #6e6e72;
     padding-bottom: 2rem;
     margin-bottom: 2rem;
+}
+
+/* ==== Media Queries ==== */
+@media (max-width: 507px) {
+    .project_container .header,
+    .services .services_header {
+        font-size: 1.6rem;
+    }
 }
