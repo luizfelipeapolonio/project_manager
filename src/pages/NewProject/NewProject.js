@@ -2,8 +2,8 @@
 import styles from "./NewProject.module.css";
 
 // Components
-import ProjectForm from "../../components/ProjectForm";
-import Message from "../../components/Message";
+import ProjectForm from "../../components/project/ProjectForm";
+import Message from "../../components/layout/Message";
 
 // Hooks
 import { useState, useEffect } from "react";

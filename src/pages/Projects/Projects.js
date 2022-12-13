@@ -6,9 +6,9 @@ import image from "../../images/rocket.png";
 
 // Components
 import { Link } from "react-router-dom";
-import Message from "../../components/Message";
-import ProjectCard from "../../components/ProjectCard";
-import Loading from "../../components/Loading";
+import Message from "../../components/layout/Message";
+import ProjectCard from "../../components/project/ProjectCard";
+import Loading from "../../components/layout/Loading";
 
 // Hooks
 import { useState, useEffect, useCallback } from "react";
@@ -24,8 +24,6 @@ const Projects = () => {
 
     const { projects, states } = useFetchProjects("projects");
     const { deleteProject, states: deleteState } = useProjectHandle("projects");
-
-    console.log("PROJECTS", projects);
 
     // Reset the message of location state
     const resetLocationState = useCallback(() => {
@@ -62,13 +60,6 @@ const Projects = () => {
             }
         }
     }, [message]);
-
-    // console.log("Message state", message);
-    // if(location.state) {
-    //     console.log("LOCATION ", location);
-    // }
-
-    console.log(states);
 
     return (
         <>

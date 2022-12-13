@@ -71,9 +71,6 @@
 }
 
 .services_container {
-    /* display: grid;
-    grid-template-columns: repeat(4, minmax(24.13%, 1fr));
-    gap: 1.5rem; */
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
@@ -93,9 +90,52 @@
 }
 
 /* ==== Media Queries ==== */
+@media (max-width: 900px) {
+    .project_info .form {
+        width: 60%;
+    }   
+}
+
+@media (max-width: 600px) {
+    .project_info .form {
+        width: 80%;
+    }
+}
+
 @media (max-width: 507px) {
     .project_container .header,
     .services .services_header {
         font-size: 1.6rem;
+    }
+
+    .show_services h2 {
+        font-size: 2.4rem;
+    }
+
+    .project_container .project_button {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 450px) {
+    .project_info .form {
+        width: 100%;
+    }
+}
+
+@media (max-width: 435px) {
+    .project_container .header h1 {
+        font-size: 1.8em;
+    }
+    
+    .project_container .header h1,
+    .services .services_header h2 {
+        margin-right: 2.3rem;
+    }
+}
+
+@media (max-width: 370px) {
+    .project_info .project_data p span{
+        display: block;
     }
 }

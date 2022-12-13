@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const About = () => {
     return (
-        <div className={styles.container}>
+        <div className={styles.about_container}>
             <h2>Sobre o Project<span>M</span></h2>
             <p>
                 Esta aplicação consiste em um gerenciador de custos de projeto,

@@ -2,9 +2,10 @@
 import './App.css';
 
 // Components
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import Loading from "./components/Loading";
+import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
+import Loading from "./components/layout/Loading";
+import NotFound from "./components/layout/NotFound";
 
 // Pages
 import Home from "./pages/Home/Home";
@@ -37,8 +38,6 @@ function App() {
       setUser(user);
     });
   }, [auth]);
-
-  console.log("Component App user", user);
 
   return (
     <div className="App">
@@ -77,6 +76,7 @@ function App() {
                     path="/about" 
                     element={user ? <About /> : <Navigate to="/login" />} 
                   />
+                  <Route path="*" element={<NotFound />} />
                 </Routes>
               </div>
             <Footer />

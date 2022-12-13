@@ -5,7 +5,7 @@ import styles from "./Form.module.css";
 import { Link } from "react-router-dom";
 
 // Components
-import Message from "../../components/Message";
+import Message from "../../components/layout/Message";
 
 // Hooks
 import { useState, useEffect } from "react";

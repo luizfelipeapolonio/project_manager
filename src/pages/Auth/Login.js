@@ -2,7 +2,7 @@
 import styles from "./Form.module.css";
 
 // Components
-import Message from "../../components/Message";
+import Message from "../../components/layout/Message";
 
 // React Router
 import { Link } from "react-router-dom";

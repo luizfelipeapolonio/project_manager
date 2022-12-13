@@ -2,7 +2,7 @@
 import styles from "./Loading.module.css";
 
 // Loading image
-import loading from "../images/loading.svg";
+import loading from "../../images/loading.svg";
 
 const Loading = ({ type }) => {
     return (

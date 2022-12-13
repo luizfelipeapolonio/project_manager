@@ -2,7 +2,7 @@
 import styles from "./ProjectForm.module.css";
 
 // Components
-import Message from "./Message";
+import Message from "../layout/Message";
 
 // Hooks
 import { useState, useEffect, useRef } from "react";

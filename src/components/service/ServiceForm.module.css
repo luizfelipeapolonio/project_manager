@@ -73,3 +73,22 @@
     opacity: 0.8;
     cursor: not-allowed;
 }
+
+/* ==== Media Queries ==== */
+@media (max-width: 900px) {
+    .service_form {
+        width: 60%;
+    }   
+}
+
+@media (max-width: 600px) {
+    .service_form {
+        width: 80%;
+    }
+}
+
+@media (max-width: 450px) {
+    .service_form {
+        width: 100%;
+    }
+}

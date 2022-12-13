@@ -4,3 +4,22 @@
     width: 43%;
     margin: auto 0;
 }
+
+/* ==== Media Queries ==== */
+@media (max-width: 900px) {
+    .container {
+        width: 60%;
+    }   
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: 80%;
+    }
+}
+
+@media (max-width: 450px) {
+    .container {
+        width: 100%;
+    }
+}

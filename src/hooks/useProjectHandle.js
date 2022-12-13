@@ -77,8 +77,6 @@ export const useProjectHandle = (docCollection, projectId = null) => {
                 newDocument
             );
 
-            console.log("useinsertProject ", insertedDocument);
-
             dispatch({type: "SUCCESS", payload: null, message: null});
 
             navigate("/projects", {
@@ -129,8 +127,6 @@ export const useProjectHandle = (docCollection, projectId = null) => {
             await updateDoc(docRef, data);
 
             const updatedProjectData = await getDoc(docRef);
-
-            console.log("UPDATED PROJECT", updatedProjectData.data());
 
             dispatch({
                 type: "SUCCESS", 

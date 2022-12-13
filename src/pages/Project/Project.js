@@ -2,11 +2,11 @@
 import styles from "./Project.module.css";
 
 // Components
-import ProjectForm from "../../components/ProjectForm";
-import Loading from "../../components/Loading";
-import Message from "../../components/Message";
-import ServiceForm from "../../components/ServiceForm";
-import ServiceCard from "../../components/ServiceCard";
+import ProjectForm from "../../components/project/ProjectForm";
+import Loading from "../../components/layout/Loading";
+import Message from "../../components/layout/Message";
+import ServiceForm from "../../components/service/ServiceForm";
+import ServiceCard from "../../components/service/ServiceCard";
 
 // Hooks
 import { useState, useEffect } from "react";
@@ -30,8 +30,6 @@ const Project = () => {
         deleteService, 
         states: serviceStates 
     } = useServiceHandle("projects", id);
-
-    console.log("PROJETO INDIVIDUAL", project);
 
     // Format to a decimal value
     const decimal = (value) => {

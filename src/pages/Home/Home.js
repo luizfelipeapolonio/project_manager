@@ -6,7 +6,7 @@ import image from "../../images/business.png";
 
 // Components
 import { Link } from "react-router-dom";
-import Loading from "../../components/Loading";
+import Loading from "../../components/layout/Loading";
 
 // Hooks
 import { useState, useEffect } from "react";
@@ -22,17 +22,11 @@ const Home = () => {
         if(currentUser.displayName) {
             setUserName(currentUser.displayName);
             sessionStorage.clear();
-
-            // console.log("TEM DISPLAYNAME");
         }else {
             const name = sessionStorage.getItem("userName");
             setUserName(name);
-
-            // console.log("NÃO TEM DISPLAYNAME");
         }
     }, [currentUser]);
-
-    // console.log("HOME USER", currentUser);
 
     return (
         <div className={styles.home_container}>

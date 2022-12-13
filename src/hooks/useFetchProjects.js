@@ -65,7 +65,6 @@ export const useFetchProjects = (docCollection) => {
                             ...doc.data()
                         })))
                     }
-                    console.log("queySnapshot", querySnapshot);
                     dispatch({type: "SUCCESS"});
                 });
 

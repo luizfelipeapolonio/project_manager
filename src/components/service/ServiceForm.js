@@ -2,7 +2,7 @@
 import styles from "./ServiceForm.module.css";
 
 // Components
-import Message from "./Message";
+import Message from "../layout/Message";
 
 // Hooks
 import { useState, useEffect, useRef } from "react";
@@ -12,7 +12,6 @@ const ServiceForm = ({ handleSubmit, states, project }) => {
     const [name, setName] = useState("");
     const [cost, setCost] = useState("");
     const [description, setDescription] = useState("");
-    // const [service, setService] = useState({});
     const [message, setMessage] = useState(null);
 
     const [budget, setBudget] = useState(0);
@@ -49,23 +48,12 @@ const ServiceForm = ({ handleSubmit, states, project }) => {
 
         if(service.cost > budget || newSpent > budget) {
             setMessage("Orçamento ultrapassado!");
-            console.log(typeof newSpent);
             return;
         }
 
         await handleSubmit(service, newSpent.toFixed(2).replace(".", ","));
 
-        // console.log(parseFloat(totalSpent), budget);
     }
-
-    // Set service state with an object containing the service data
-    // const  = (e) => {
-    //     setService({
-    //         id: uuidv4(),
-    //         ...service,
-    //         [e.target.name]: e.target.value
-    //     });
-    // }
 
     useEffect(() => {
         if(project) {
