@@ -47,8 +47,24 @@ const ProjectForm = ({
             return;
         }
 
+        if(project && project.totalSpent) {
+            const totalSpent = project.totalSpent.replace(",", ".")
+
+            if(parseFloat(budgetRef.current.value) < parseFloat(totalSpent)) {
+                setMessage("Custo do projeto menor do que o total utilizado!");
+                return;
+            }
+        }
+
         await handleSubmit(project);
     }
+
+    // Set the project state every time projectData is changed
+    useEffect(() => {
+        if(projectData) {
+            setProject(projectData);
+        }
+    }, [projectData]);
 
     // Set category according to option selected
     const handleSelect = (e) => {
@@ -93,6 +109,7 @@ const ProjectForm = ({
                     <input 
                         type="number"
                         name="budget"
+                        step=".01"
                         ref={budgetRef}
                         placeholder="Orçamento total do seu projeto"
                         value={project.budget || ""}

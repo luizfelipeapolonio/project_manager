@@ -124,7 +124,11 @@ export const useProjectHandle = (docCollection, projectId = null) => {
 
         try {
             const docRef = await doc(db, docCollection, projectId);
-            await updateDoc(docRef, data);
+            await updateDoc(docRef, {
+                name: data.name,
+                budget: data.budget,
+                category: data.category
+            });
 
             const updatedProjectData = await getDoc(docRef);
 
