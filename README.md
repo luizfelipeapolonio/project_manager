@@ -1,70 +1,100 @@
-# Getting Started with Create React App
+# ProjectM - Gerenciador de custos de projeto
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aplicação de gerenciamento de custos de projeto construída com ReactJS e Firebase. Nesta aplicação, cada usuário terá sua conta, onde poderá criar projetos, definir um valor de orçamento, e adicionar serviços ao projeto com base no valor do orçamento definido. A aplicação possui um foco na gestão empresarial.
 
-## Available Scripts
+- Criação de conta e projeto
+<img src="./assets/ProjectM_Create.gif" alt="Criação de conta e projeto" />
 
-In the project directory, you can run:
+<br />
 
-### `npm start`
+- Edição de projeto e criação de serviços
+<img src="./assets/ProjectM_Service.gif" alt="Edição de projeto e criação de serviços" />
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<br />
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Regras de negócio do orçamento
+<img src="./assets/ProjectM_Budget.gif" alt="Regras de negócio do orçamento" />
 
-### `npm test`
+<br />
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Usuários diferentes
+<img src="./assets/ProjectM_Users.gif" alt="Usuários diferentes" />
 
-### `npm run build`
+<br />
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Validações de autenticação
+<img src="./assets/ProjectM_Auth.gif" alt="Validações de autenticação" />
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<br />
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Layout Responsivo
+<img src="./assets/ProjectM_Mobile.gif" alt="Layout Responsivo" />
 
-### `npm run eject`
+## 💻 Tecnologias utilizadas
+As seguintes ferramentas foram utilizadas na construção do projeto:
+- [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) | [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) | [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
+- [ReactJS](https://reactjs.org/)
+- [React Icons](https://react-icons.github.io/react-icons/)
+- [React Router Dom](https://reactrouter.com/en/main)
+- [Firebase](https://firebase.google.com/)
+- [Create React App](https://github.com/facebook/create-react-app)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 🚀 Funções/Recursos
+Principais funções e recursos da aplicação:
+- **Autenticação:** autenticação de usuários por e-mail e senha, utilizando o serviço [Firebase Authentication](https://firebase.google.com/docs/auth).
+- **Armazenamento:** armazenamento de dados em nuvem, utilizando o serviço [Firebase Cloud Firestore](https://firebase.google.com/docs/firestore).
+- **Roteamento:** rotas protegidas com base na autenticação de usuário, utilizando [React Router Dom](https://reactrouter.com/en/main).
+- **Flash Messages:** mensagens rápidas para indicar o sucesso ou falha de alguma ação na aplicação.
+- **Validações:** validações de formulários com base nas regras de negócios da aplicação.
+- **Responsividade:** layout responsivo que se ajusta aos diferentes tamanhos de tela.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🛠 Pré-requisitos
+- Criar um [projeto no firebase](https://firebase.google.com/docs/web/setup?authuser=0&hl=pt#create-project).
+- Configurar o serviço [Authentication](https://firebase.google.com/docs/auth/web/password-auth?hl=pt&authuser=0#before_you_begin) para e-mail e senha.
+- Criar um banco de dados do [Cloud Firestore](https://firebase.google.com/docs/firestore/quickstart?hl=pt&authuser=0#create).
+- Configurar os [índices do Cloud Firestore](https://firebase.google.com/docs/firestore/query-data/indexing?authuser=0&hl=pt#use_the_firebase_console) desta maneira:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    <img src="./assets/index1.png" width="400px" height="300px" alt="Configuração dos índices" />
+    <img src="./assets/index2.png" width="400px" height="300px" alt="Configuração dos índices" />
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Ter instalado o [Git](https://git-scm.com/) e o [NodeJs](https://nodejs.org/en/).
 
-## Learn More
+# ⚙ Como rodar a aplicação
+Com o auxílio de um terminal, precisamos rodar alguns comandos para executar o projeto:
+- Primeiro, clone este repositório:
+    ```bash
+    $ git clone https://github.com/luizfelipeapolonio/project_manager
+    ```
+- Acesse a pasta da aplicação:
+    ```bash
+    $ cd project_manager
+    ```
+- Instale as dependências:
+    ```bash
+    $ npm install
+    ```
+- Agora, com o auxílio de um editor de códigos, criamos um arquivo `.env` na raíz da aplicação:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    <img src="./assets/env_file.png" alt="Criação do arquivo .env" />
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Dentro do arquivo `.env`, coloque suas [variáveis de ambiente do firebase](https://firebase.google.com/docs/web/learn-more?authuser=0&hl=pt#config-object), seguindo este modelo:
+    ```
+    REACT_APP_API_KEY=
+    REACT_APP_AUTH_DOMAIN=
+    REACT_APP_PROJECT_ID=
+    REACT_APP_STORAGE_BUCKET=
+    REACT_APP_MESSAGING_SENDER_ID=
+    REACT_APP_APP_ID=
+    ```
 
-### Code Splitting
+- Com o auxílio do terminal novamente, na pasta raíz da aplicação (project_manager), damos o comando para iniciar a aplicação:
+    ```bash
+    $ npm start
+    ```
+- A aplicação irá abrir automaticamente no seu navegador na porta:3000, caso não abra, acesse http://localhost:3000
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 📝 Licença
+Este repositório está licenciado pela **MIT LICENSE**. Para mais informações detalhadas, leia o arquivo [LICENSE](./LICENSE) contido neste repositório.
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Autor
+Feito com 💜 por luizfelipeapolonio
